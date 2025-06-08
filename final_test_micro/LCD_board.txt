@@ -1,0 +1,175 @@
+int RS = 2;
+int E = 3;
+int num=0;
+void LCDCommand(int cm){
+  digitalWrite(RS,LOW);// Set Command Mode
+  
+  int a = 0b10000000;
+  for(int i=11;i>=4;i--){
+  	digitalWrite(i,cm&a);
+    a = a >> 1;
+  }
+  digitalWrite(E,LOW);//Enable 1 clock
+  delay(2);
+  digitalWrite(E,HIGH);
+  delay(2);
+  digitalWrite(E,LOW);
+  delay(2);
+  
+}
+void LCDData(int cm){
+  digitalWrite(RS,HIGH);// Set Data Mode
+  
+  int a = 0b10000000;
+  for(int i=11;i>=4;i--){
+  	digitalWrite(i,cm&a);
+    a = a >> 1;
+  }
+  digitalWrite(E,LOW);//Enable 1 clock
+  delay(2);
+  digitalWrite(E,HIGH);
+  delay(2);
+  digitalWrite(E,LOW);
+  delay(2);
+  
+}
+
+void Number(int nums){
+  int t=nums/10;
+  int s=nums%10;
+  LCDData(t+48);
+  LCDData(s+48);
+}
+void screen1(){
+   LCDCommand(0x01);
+   LCDData(0x52);
+   LCDData(0x41);
+   LCDData(0x44);
+   LCDData(0x20);
+   LCDData(0x20);
+   LCDData(0x20);
+   LCDData(0x20);
+   LCDData(0x20);
+   LCDData(0x3c);
+   LCDData(0x3c);
+   LCDCommand(0xC0);
+   LCDData(0x42);
+   LCDData(0x4c);
+   LCDData(0x55);
+   LCDData(0x45);}
+
+void screen2(){
+   LCDCommand(0x01);
+   LCDData(0x52);
+   LCDData(0x41);
+   LCDData(0x44);
+   LCDCommand(0xC0);
+   LCDData(0x42);
+   LCDData(0x4c);
+   LCDData(0x55);
+   LCDData(0x45);
+   LCDData(0x20);
+   LCDData(0x20);
+   LCDData(0x20);
+   LCDData(0x20);
+   LCDData(0x3c);
+   LCDData(0x3c);
+}
+void screen3(){
+   LCDCommand(0x01);
+   LCDData(0x42);
+   LCDData(0x4c);
+   LCDData(0x41);
+   LCDData(0x43);
+   LCDData(0x4b);
+   LCDData(0x20);
+   LCDData(0x20);
+   LCDData(0x20);
+   LCDData(0x3c);
+   LCDData(0x3c);
+   LCDCommand(0xC0);
+   LCDData(0x47);
+   LCDData(0x52);
+   LCDData(0x45);
+   LCDData(0x45);
+   LCDData(0x4e);
+}
+void screen4(){
+   LCDCommand(0x01);
+   LCDData(0x42);
+   LCDData(0x4c);
+   LCDData(0x41);
+   LCDData(0x43);
+   LCDData(0x4b);
+   LCDCommand(0xC0);
+   LCDData(0x47);
+   LCDData(0x52);
+   LCDData(0x45);
+   LCDData(0x45);
+   LCDData(0x4e);
+   LCDData(0x20);
+   LCDData(0x20);
+   LCDData(0x20);
+   LCDData(0x3c);
+   LCDData(0x3c);
+}
+
+void setup()
+{
+  for(int i=0;i<=11;i++){
+    pinMode(i,OUTPUT);
+  }
+   pinMode(14,INPUT);
+  pinMode(15,INPUT);
+  
+  delay(100);
+  LCDCommand(0x38); //set Function
+  LCDCommand(0x01); //Clear DP 
+  LCDCommand(0x0E); //DP ON, Cursor on
+  LCDData(0x4E); //n or 'N'
+  LCDData(0x41);//A
+  LCDData(0x50);//p
+  LCDData(0x48);//H
+  LCDData(0x41);//A
+  LCDData(0x50);//p
+  LCDData(0x48);//H
+  LCDData(0x4f);//o
+  LCDData(0x4e);//n
+  //LCDCommand(0xC0);//n
+  LCDData(0x20);//n space
+  LCDData(0x4b);//K
+  LCDCommand(0x01);
+  if(num==0){screen1();}
+  if(num==1){screen2();}
+  if(num==2){screen3();}
+  if(num==3){screen4();}
+
+}
+
+void loop(){ 
+
+    if(digitalRead(14)==0){
+      num++;
+    if(num==0){screen1();}
+if(num==1){screen2();}
+if(num==2){screen3();}
+if(num==3){screen4();}
+if(num==-1){num=4;}
+if(num==5){num=0;}
+  	}
+    if(digitalRead(15)==0){
+      num--;
+    if(num==0){screen1();}
+    if(num==1){screen2();}
+    if(num==2){screen3();}
+    if(num==3){screen4();}
+    if(num==-1){num=4;}
+    if(num==5){num=0;}
+  }
+
+
+
+   
+} 
+
+ 

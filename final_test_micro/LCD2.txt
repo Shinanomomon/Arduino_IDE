@@ -1,0 +1,76 @@
+int RS = 2;
+int E = 3;
+int num=0;
+void LCDCommand(int cm){
+  digitalWrite(RS,LOW);// Set Command Mode
+  
+  int a = 0b10000000;
+  for(int i=11;i>=4;i--){
+  	digitalWrite(i,cm&a);
+    a = a >> 1;
+  }
+  digitalWrite(E,LOW);//Enable 1 clock
+  delay(2);
+  digitalWrite(E,HIGH);
+  delay(2);
+  digitalWrite(E,LOW);
+  delay(2);
+  
+}
+void LCDData(int cm){
+  digitalWrite(RS,HIGH);// Set Data Mode
+  
+  int a = 0b10000000;
+  for(int i=11;i>=4;i--){
+  	digitalWrite(i,cm&a);
+    a = a >> 1;
+  }
+  digitalWrite(E,LOW);//Enable 1 clock
+  delay(2);
+  digitalWrite(E,HIGH);
+  delay(2);
+  digitalWrite(E,LOW);
+  delay(2);
+  
+}
+
+void Number(int nums){
+  int t=nums/10;
+  int s=nums%10;
+  LCDData(t+48);
+  LCDData(s+48);
+}
+void setup()
+{
+  for(int i=0;i<=11;i++){
+    pinMode(i,OUTPUT);
+  }
+   pinMode(14,INPUT);
+  pinMode(14,INPUT);
+  delay(100);
+  LCDCommand(0x38); //set Function
+  LCDCommand(0x01); //Clear DP 
+  LCDCommand(0x0E); //DP ON, Cursor on
+  LCDData(0x4E); //n or 'N'
+  LCDData(0x41);//A
+  LCDData(0x50);//p
+  LCDData(0x48);//H
+  LCDData(0x41);//A
+  LCDData(0x50);//p
+  LCDData(0x48);//H
+  LCDData(0x4f);//o
+  LCDData(0x4e);//n
+  //LCDCommand(0xC0);//n
+  LCDData(0x20);//n space
+  LCDData(0x4b);//K
+  LCDCommand(0x01);
+}  
+
+void loop()
+{
+  num=num+1;
+  Number(num);
+  delay(500);
+  LCDCommand(0x01);
+ if(num==20){num=0;}
+}

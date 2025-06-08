@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="3.0">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="anny"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2024-04-17 10:14:30 AM"/>
+        <attribute name="created" value="YW5ueTtTSElOT044MzQ3OzIwMjQtMDQtMTc7MTA6MTA6MDMgQU07MjM2OQ=="/>
+        <attribute name="edited" value="YW5ueTtTSElOT044MzQ3OzIwMjQtMDQtMTc7MTA6MTQ6MzAgQU07MTsyNDgx"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="resiveData" type="String" array="False" size=""/>
+            <input variable="&#3619;&#3633;&#3610;&#3586;&#3657;&#3629;&#3617;&#3641;&#3621;"/>
+            <if expression="&#3617;&#3637;&#3586;&#3657;&#3629;&#3617;&#3641;&#3621;">
+                <then>
+                    <assign variable="&#3649;&#3611;&#3621;&#3591;&#3586;&#3657;&#3629;&#3617;&#3641;&#3621; String" expression="integer"/>
+                    <assign variable="integer" expression="&#3649;&#3626;&#3604;&#3591;&#3612;&#3621;&#3605;&#3633;&#3623;&#3648;&#3621;&#3586;&#3610;&#3609; 7 secment &#3650;&#3604;&#3618;&#3651;&#3594;&#3657; function callCu &#3651;&#3609;&#3585;&#3634;&#3619;&#3649;&#3626;&#3604;&#3591;&#3612;&#3621;"/>
+                </then>
+                <else/>
+            </if>
+        </body>
+    </function>
+</flowgorithm>

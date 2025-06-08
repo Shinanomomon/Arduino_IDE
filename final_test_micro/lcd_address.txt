@@ -1,0 +1,30 @@
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(32,16,2);
+LiquidCrystal_I2C lcd2(33,16,2);
+
+void setup()
+{
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(3,0);
+  lcd.clear();
+  lcd.print("Hello, world!");
+  lcd.setCursor(0,1);
+  lcd.print("KMUTNB");
+  
+  lcd2.init();
+  lcd2.backlight();
+  lcd2.clear();
+  lcd2.setCursor(3,0);
+  lcd2.print("Naphaphon");
+  lcd2.setCursor(0,1);
+  lcd2.print("KLAIMANEE");
+} 
+
+void loop()
+{
+  
+  
+}
+  
