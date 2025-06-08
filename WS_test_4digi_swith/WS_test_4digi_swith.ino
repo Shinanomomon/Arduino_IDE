@@ -43,21 +43,21 @@ void setup() {
 
 
 
-    /*if (digitalRead(2) == 0) {
-      delay(20);  // DEBounce
-      if (digitalRead(2) == 0) {
-        while (!digitalRead(2)) {}
-        number--;
-        for (int i = 0; i < 3; i++) {
-          digitalWrite(6, 1);
-          delay(100);
-          digitalWrite(6, 0);
-          delay(100);
+      /*if (digitalRead(2) == 0) {
+        delay(20);  // DEBounce
+        if (digitalRead(2) == 0) {
+          while (!digitalRead(2)) {}
+          number--;
+          for (int i = 0; i < 3; i++) {
+            digitalWrite(6, 1);
+            delay(100);
+            digitalWrite(6, 0);
+            delay(100);
+          }
         }
+        send7Seg(font[number]);
       }
-      send7Seg(font[number]);
-    }
-    if (number == 0) {
-      number = 9;
-    }*/
+      if (number == 0) {
+        number = 9;
+      }*/
   }

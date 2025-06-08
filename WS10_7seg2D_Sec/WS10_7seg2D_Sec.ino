@@ -1,3 +1,6 @@
+#include"Timer.h"
+Timer t;
+int count = 24  , oldcount =0;
 int font[12]{
   //font[0]=1
   0x3f,  //0
@@ -13,8 +16,7 @@ int font[12]{
   0x00,  //off
   0x80   // .dp
 };
-unsigned long previousMillis = 0;
-const long interval = 1000;
+
 
 void send7Seg(int ch) {
   int a = 0b00000001;
@@ -24,33 +26,31 @@ void send7Seg(int ch) {
   }
 }
 
-void send7Seg_digit(int ch, int digit) {
-  for (int i = 3; i <= 6; i++) {
-    digitalWrite(i, HIGH);  //clear all digi
+  void send7Seg_digit(int ch, int digit) {
+    for (int i = 5; i <= 6; i++) {
+      digitalWrite(i, HIGH);  //clear all digi
+    }
+    // ชุดจัดเรียงแต่ละsegment//
+    int a = 0b00000001;
+    for (int i = 7; i <= 14; i++) {
+      digitalWrite(i, ch & a);
+      a = a << 1;
+    }
+    switch (digit) {
+      case 1:
+        digitalWrite(5, LOW);
+        break;
+      case 2:
+        digitalWrite(6, LOW);
+        break;
+    }
+    delay(1);
   }
-  // ชุดจัดเรียงแต่ละsegment//
-  int a = 0b00000001;
-  for (int i = 7; i <= 14; i++) {
-    digitalWrite(i, ch & a);
-    a = a << 1;
-  }
-  switch (digit) {
-    case 1:
-      digitalWrite(3, LOW);
-      break;
-    case 2:
-      digitalWrite(4, LOW);
-      break;
-    case 3:
-      digitalWrite(5, LOW);
-      break;
-    case 4:
-      digitalWrite(6, LOW);
-      break;
-  }
-  delay(1);
-}
-
+void send(){
+  int d1 = count / 10;
+  int d2 = count % 10;
+  send7Seg_digit(font[d1], 1);
+  send7Seg_digit(font[d2], 2);
 void setup() {
   Serial.begin(9600);
   for (int pin = 14; pin > 2; pin--) {
@@ -59,20 +59,13 @@ void setup() {
   pinMode(15, INPUT);  //Swith 1
   pinMode(16, INPUT);  //Swith 2
 }
-int sec = 0;
+  int sec = 0;
 void loop() {
-  int d1 = sec / 10;
-  int d2 = sec % 10;  //เอาเศษอย่างเดียว ==mod
-  send7Seg_digit(font[d1], 1);
-  send7Seg_digit(font[d2], 2);
-  unsigned long currentMillis = millis();
-  if (currentMillis - previousMillis >= interval) {
-    previousMillis = currentMillis;
-    sec++;
+    t.update();
+  send();
+  if(count != oldcount){
+    oldcount = count;
   }
-  if (sec == 60) {
-    sec = 0;
-  }
-
+  
 
 }

@@ -44,7 +44,7 @@ void loop() {
   }
   if(number == 10 && state==1){
     number=1;
-    status=2;
+    state=2;
   }
   else if(number == 6 && state==2){
     number=1;

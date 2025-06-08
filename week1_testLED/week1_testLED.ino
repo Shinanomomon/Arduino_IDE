@@ -1,6 +1,6 @@
 void setup() {
   for(int pin=13;pin>5;pin--){
-    pinMode(pin,OUTPUT);
+    pinMode(i,OUTPUT);
   }
 
 }
